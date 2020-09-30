@@ -5,6 +5,10 @@ def get_multipart_etag_checksum(stream, chunk_size=8 * 1024 * 1024):
     """Gets the checksum according to the style of S3 ETags when doing
     multipart uploads. If there less than 2 chunks, then a normal md5
     checksum is calculated.
+
+    :param stream: a file like object
+    :param chunk_size: the chunk size
+    :return: the calculated etag
     """
 
     func = partial(stream.read, chunk_size)
