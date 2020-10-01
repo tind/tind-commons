@@ -22,7 +22,7 @@ def get_multipart_etag_checksum(stream, chunk_size=8 * 1024 * 1024):
         return md5s[0].hexdigest()
 
     m = hashlib.md5()
-    for i, md5 in enumerate(md5s):
+    for md5 in md5s:
         m.update(md5.digest())
 
     return "{}-{}".format(m.hexdigest(), l)
