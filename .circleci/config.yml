@@ -1,0 +1,16 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: python:latest
+    steps:
+      - checkout
+      - run:
+          command: python -m unittest discover tind_commons.tests
+          name: Unit tests
+
+workflows:
+  main:
+    jobs:
+      - test
