@@ -29,6 +29,24 @@ class DeepEqualTests(unittest.TestCase):
 
         self.assertTrue(deep_equal(a_element, b_element))
 
+    def test_all_attributes(self):
+        a_doc = """<a b="c" d="e"></a>"""
+        b_doc = """<a b="c"></a>"""
+
+        a_element = ET.fromstring(a_doc)
+        b_element = ET.fromstring(b_doc)
+
+        self.assertFalse(deep_equal(a_element, b_element))
+
+    def test_attribute_contents(self):
+        a_doc = """<a b="c"></a>"""
+        b_doc = """<a b="d"></a>"""
+
+        a_element = ET.fromstring(a_doc)
+        b_element = ET.fromstring(b_doc)
+
+        self.assertFalse(deep_equal(a_element, b_element))
+
     def test_namespace_aware(self):
         a_doc = """<a xmlns="foo"></a>"""
         b_doc = """<a xmlns="bar"></a>"""
@@ -41,6 +59,15 @@ class DeepEqualTests(unittest.TestCase):
     def test_namespace_prefix_aware(self):
         a_doc = """<x:a xmlns:x="foo"></x:a>"""
         b_doc = """<a xmlns="foo"></a>"""
+
+        a_element = ET.fromstring(a_doc)
+        b_element = ET.fromstring(b_doc)
+
+        self.assertTrue(deep_equal(a_element, b_element))
+
+    def test_comments_are_insignificant(self):
+        a_doc = """<a><!-- This is a comment --></a>"""
+        b_doc = """<a></a>"""
 
         a_element = ET.fromstring(a_doc)
         b_element = ET.fromstring(b_doc)
