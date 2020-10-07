@@ -1,16 +1,25 @@
 version: 2.1
 
 jobs:
-  test:
+  test-python3:
     docker:
-      - image: python:latest
+      - image: python:3.7
     steps:
       - checkout
       - run:
           command: python -m unittest discover tind_commons.tests
-          name: Unit tests
+          name: Unit tests with Python 3.7
+  test-python2:
+    docker:
+      - image: python:2.7
+    steps:
+      - checkout
+      - run:
+          command: python -m unittest discover tind_commons.tests
+          name: Unit tests with Python 2.7
 
 workflows:
   main:
     jobs:
-      - test
+      - test-python3
+      - test-python2
